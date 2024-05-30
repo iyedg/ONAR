@@ -1,0 +1,32 @@
+Package: ONAR
+Type: Package
+Title: A wrapper around the ONA API
+Version: 0.1.0
+Description: A wrapper around the ONA API.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.1
+Imports: 
+    assertthat,
+    base64enc,
+    cli,
+    dplyr,
+    ggplot2,
+    glue,
+    hrbrthemes,
+    httr2,
+    janitor,
+    jsonlite,
+    lubridate,
+    purrr,
+    qrencoder,
+    readxl,
+    rlang,
+    stringr,
+    tidyjson,
+    tidyr,
+    zlib
+Authors@R: 
+    person("Iyed", "Ghedamsi", , "iyed.ghedamsi@gmail.com", role = c("cre", "ctb"))
