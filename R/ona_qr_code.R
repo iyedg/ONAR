@@ -27,37 +27,38 @@ ona_generate_qr_code <- function(
 
   payload <- list(
     "admin" = list(
-      "delete_after_send" = F,
-      "hide_old_form_versions" = T,
+      "delete_after_send" = FALSE,
+      "hide_old_form_versions" = TRUE,
       "automatic_update" = automatic_update,
-      "finalize" = T,
-      "get_blank" = T,
-      "qr_code_scanner" = T
+      "finalize" = TRUE,
+      "get_blank" = TRUE,
+      "qr_code_scanner" = TRUE
     ),
     "general" = list(
       "periodic_form_updates_check" = periodic_form_updates_check,
       "server_url" = glue::glue("https://odk.ona.io/projects/{project_id}"),
       "password" = password,
-      "external_app_recording" = F,
+      "external_app_recording" = FALSE,
       "guidance_hint" = "yes",
       "username" = username,
       "image_size" = "original",
       "autosend" = autosend,
-      "delete_send" = F,
+      "delete_send" = FALSE,
       "automatic_update" = automatic_update,
-      "instance_sync" = T,
+      "instance_sync" = TRUE,
       "constraint_behavior" = "on_swipe",
-      "high_resolution" = T,
+      "high_resolution" = TRUE,
       "form_update_mode" = form_update_mode
     )
   ) |>
     jsonlite::toJSON(auto_unbox = T) |>
     charToRaw()
 
-  qr_data <- base64enc::base64encode(zlib::compress(payload))
+  qr_data <- base64enc::base64encode(zlib::compress(payload)) |>
+    qrencoder::qrencode_df() |>
+    dplyr::mutate(z = as.logical(.data[["z"]]))
 
-  qrencoder::qrencode_df(qr_data) |>
-    dplyr::mutate(z = as.character(.data[["x"]])) |>
+  qr_data |>
     ggplot(aes(x = .data[["x"]], y = .data[["y"]], fill = .data[["z"]])) +
     ggplot2::geom_tile() +
     ggplot2::scale_fill_manual(values = c("white", "black")) +
