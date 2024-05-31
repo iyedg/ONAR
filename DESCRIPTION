@@ -1,7 +1,7 @@
 Package: ONAR
 Type: Package
 Title: A wrapper around the ONA API
-Version: 0.1.0
+Version: 0.1.0.9000
 Description: A wrapper around the ONA API.
 License: MIT + file LICENSE
 Encoding: UTF-8
